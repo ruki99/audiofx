@@ -1,5 +1,6 @@
 #ifndef VOLUME_H
 #define VOLUME_H
+#include "Effect.h"
 
 class Volume : public Effect{
     public:
@@ -14,6 +15,6 @@ class Volume : public Effect{
         private:
         // volume multiplication factor
         float factor; 
-}
+};
 
 #endif

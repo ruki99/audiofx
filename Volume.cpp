@@ -13,3 +13,7 @@ float Volume::process(float input){
     return input*factor;
 
 }
+
+Volume::~Volume(){
+    
+}

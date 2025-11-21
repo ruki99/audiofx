@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(AudioFilter
     main.cpp
     Volume.cpp
+    Effect.cpp
 )
 
 # 4. Tell the compiler where to find your header files
