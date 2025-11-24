@@ -1,6 +1,7 @@
 #ifndef VOLUME_H
 #define VOLUME_H
 #include "Effect.h"
+#include <cstdint>
 
 class Volume : public Effect{
     public:
@@ -10,11 +11,11 @@ class Volume : public Effect{
         // destructor
         ~Volume();
 
-        float process(float input) override;
+        float process(int16_t input) override;
     
         private:
         // volume multiplication factor
-        float factor; 
+        float m_factor; 
 };
 
 #endif

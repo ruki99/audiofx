@@ -2,15 +2,14 @@
 #include <iostream>
 
 
-Volume::Volume(float factor){
-
-    factor = factor;
+Volume::Volume(float factor) : m_factor(factor){
 
 }
 
-float Volume::process(float input){
+float Volume::process(int16_t input){
 
-    return input*factor;
+    //std::cout << "Factor is: " << m_factor << std::endl;
+    return input * m_factor;
 
 }
 
