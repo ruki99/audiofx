@@ -1,10 +1,11 @@
 #ifndef EFFECT_H
 #define EFFECT_H
 #include <cstdint>
+#include <vector>
 
 class Effect{
     public:
-        virtual float process(int16_t input) = 0;
+        virtual void process(std::vector<float>& input) = 0;
 
         virtual ~Effect();
     private:
