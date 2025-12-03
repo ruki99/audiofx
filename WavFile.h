@@ -26,6 +26,7 @@ class WavFile{
 
     private:
         std::vector<float> audioData_m; // float data written to by void conversion function
+        std::vector<uint8_t> headerBuffer_m; // hold original header data to write to processed audio
 
         // .wav header data
         uint16_t audioFmat_m; // byte 20-21: audio fmat
