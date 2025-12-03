@@ -2,18 +2,15 @@
 #define VOLUME_H
 #include "Effect.h"
 #include <cstdint>
+#include <vector>
 
 class Volume : public Effect{
     public:
-        // constrcutor
         Volume(float factor);
-        
-        // destructor
         ~Volume();
-
-        float process(int16_t input) override;
+        void process(std::vector<float>& input) override;
     
-        private:
+    private:
         // volume multiplication factor
         float m_factor; 
 };

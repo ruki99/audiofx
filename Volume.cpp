@@ -6,11 +6,12 @@ Volume::Volume(float factor) : m_factor(factor){
 
 }
 
-float Volume::process(int16_t input){
+void Volume::process(std::vector<float>& input){
 
     //std::cout << "Factor is: " << m_factor << std::endl;
-    return input * m_factor;
-
+    for(std::size_t i = 0; i < input.size(); i++){
+        input[i] *= m_factor;
+    }
 }
 
 Volume::~Volume(){
