@@ -10,15 +10,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # 3. Create the executable target
 # List ALL your .cpp source files here.
-add_executable(AudioFilter
+add_executable(AudioFX
     main.cpp
     Volume.cpp
     Effect.cpp
+    WavFile.cpp
+    Bitcrusher.cpp
 )
 
 # 4. Tell the compiler where to find your header files
 # Assuming you place AudioFile.h (and all other .h files) in an 'include' folder
-target_include_directories(AudioFilter 
+target_include_directories(AudioFX 
     PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR} 
     ${CMAKE_CURRENT_SOURCE_DIR}/include 
