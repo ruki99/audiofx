@@ -17,6 +17,7 @@ add_executable(AudioFX
     WavFile.cpp
     Bitcrusher.cpp
     Overdrive.cpp
+    Distortion.cpp
 )
 
 # 4. Tell the compiler where to find your header files
