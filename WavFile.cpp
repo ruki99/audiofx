@@ -61,11 +61,11 @@ WavFile::WavFile(const std::string& filename){
         }
     }
 
-    std::cout << "--- HEADER DEBUG ---" << std::endl;
-    std::cout << "Sample Rate: " << sampleRate_m << std::endl;
-    std::cout << "Bits Per Sample: " << bitsPerSample_m << std::endl;
-    std::cout << "Data Size (Subchunk2): " << Subchunk2Size_m << " bytes" << std::endl;
-    std::cout << "--------------------" << std::endl;
+    // std::cout << "--- HEADER DEBUG ---" << std::endl;
+    // std::cout << "Sample Rate: " << sampleRate_m << std::endl;
+    // std::cout << "Bits Per Sample: " << bitsPerSample_m << std::endl;
+    // std::cout << "Data Size (Subchunk2): " << Subchunk2Size_m << " bytes" << std::endl;
+    // std::cout << "--------------------" << std::endl;
 
     // calculate sample count
     int numSamples = Subchunk2Size_m / sizeof(uint16_t);
