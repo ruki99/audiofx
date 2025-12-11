@@ -18,6 +18,7 @@ add_executable(AudioFX
     Bitcrusher.cpp
     Overdrive.cpp
     Distortion.cpp
+    Tremolo.cpp
 )
 
 # 4. Tell the compiler where to find your header files
