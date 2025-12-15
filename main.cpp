@@ -7,38 +7,15 @@
 #include "WavFile.h"
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <vector>
 
 int main(int argc, char* argv[]);
 
 int main(int argc, char* argv[]){
 
-    // args for vol
-    // if (argc != 4){
-    //     std::cout << "usage ./AudioFX input.wav output.wav <volume factor>" << std::endl;
-    //     return 1;
-    // }
-
-    // args for bitcrusher
-    // if (argc != 5){
-    //     std::cout << "usage ./AudioFX input.wav output.wav <resolution factor> <sample rate factor>" << std::endl;
-    //     return 1;
-    // }
-
-    // args for overdrive
-    // if (argc != 4){
-    //     std::cout << "usage ./AudioFX input.wav output.wav <drive_val>" << std::endl;
-    //     return 1;
-    // }
-
-    // args for distortion
-    // if (argc != 4){
-    //     std::cout << "usage ./AudioFX input.wav output.wav <gain>" << std::endl;
-    //     return 1;
-    // }
-
-    // args for tremolo
-    if (argc != 5){
-        std::cout << "usage ./AudioFX input.wav output.wav <depth> <modulation frequency>" << std::endl;
+    if (argc != 3){
+        std::cout << "usage ./AudioFX input.wav output.wav" << std::endl;
         return 1;
     }
 
@@ -47,47 +24,101 @@ int main(int argc, char* argv[]){
     std::vector<float>& buffer = wav.getAudio();
     uint32_t sampleRate = wav.getSampleRate();
 
-    // testing main with volume
+    std::cout << "Welcome to your digital pedalboard!\n" << std::endl;
 
-    // float vol_factor = std::stof(argv[3]);
-    // Effect* volFX = new Volume(vol_factor);
-    // volFX->process(buffer);
-    // wav.save(argv[2], buffer);
-    // delete volFX;
+    std::string helpMenu = "EFFECT         COMMAND\n"
+                        "Bitcrusher     bitcrusher <resolution> <rate>\n"
+                        "Distortion     distortion <gain>\n"
+                        "Overdrive      overdrive <gain>\n"
+                        "Tremolo        tremolo <depth> <modulation frequency>\n"
+                        "\n"
+                        "NOTE: COMMANDS ARE CASE-SENSITIVE\n";
+    std::cout << helpMenu << std::endl;
 
-    // testing main with bitcrusher
+    // main loop
+    while (true){
 
-    // int res = std::stof(argv[3]);
-    // int rate = std::stof(argv[4]);
-    // Effect* BitcrusherFX = new Bitcrusher(res, rate);
-    // BitcrusherFX->process(buffer);
-    // wav.save(argv[2], buffer);
-    // delete BitcrusherFX;
+        std::string usrCmd;
+        std::cout << ">";
+        std::getline(std::cin, usrCmd);
+        std::stringstream ss(usrCmd);
+        std::string word;
 
-    // testing main with Overdrive
+        std::vector<std::string> vec;
 
-    // float drive = std::stof(argv[3]);
-    // Effect* OverdriveFX = new Overdrive(drive);
-    // OverdriveFX->process(buffer);
-    // wav.save(argv[2], buffer);
-    // delete OverdriveFX;
+        while( std::getline(ss, word, ' ')){
+            vec.push_back(word);
+        }
 
-    // testing main with Distortion
+        // for (int i = 0; i < vec.size(); i++){
+        //     std::cout << vec[i] << std::endl;
+        // }
 
-    // float gain = std::stof(argv[3]);
-    // Effect* DistortionFX = new Distortion(gain);
-    // DistortionFX->process(buffer);
-    // wav.save(argv[2], buffer);
-    // delete DistortionFX;
+        if (vec[0] == "bitcrusher") {
 
-    // testing main with Tremolo
+            // check for valid number of args
+            if (vec.size() != 3 ){
+                std::cout << "incorrect number of arguments" << std::endl;
+                return 1;
+            }
 
-    float depth = std::stof(argv[3]);
-    float modFreq = std::stof(argv[4]);
-    Effect* TremoloFX = new Tremolo(depth, modFreq, sampleRate);
-    TremoloFX->process(buffer);
-    wav.save(argv[2], buffer);
-    delete TremoloFX;
+            int res = std::stof(vec[1]);
+            int rate = std::stof(vec[2]);
+            Effect* BitcrusherFX = new Bitcrusher(res, rate);
+            BitcrusherFX->process(buffer);
+            delete BitcrusherFX;
+
+        } else if (vec[0] == "distortion") {
+
+            if (vec.size() != 2 ){
+                std::cout << "incorrect number of arguments" << std::endl;
+                return 1;
+            }
+
+            float gain = std::stof(vec[1]);
+            Effect* DistortionFX = new Distortion(gain);
+            DistortionFX->process(buffer);
+            delete DistortionFX;
+
+        } else if (vec[0] == "overdrive") {
+
+            if (vec.size() != 3 ){
+                std::cout << "incorrect number of arguments" << std::endl;
+                return 1;
+            }
+            
+            float drive = std::stof(vec[1]);
+            Effect* OverdriveFX = new Overdrive(drive);
+            OverdriveFX->process(buffer);
+            delete OverdriveFX;
+
+        } else if (vec[0] == "tremolo") {
+
+            if (vec.size() != 3 ){
+                std::cout << "incorrect number of arguments" << std::endl;
+                return 1;
+            }
+
+            float depth = std::stof(vec[1]);
+            float modFreq = std::stof(vec[2]);
+            Effect* TremoloFX = new Tremolo(depth, modFreq, sampleRate);
+            TremoloFX->process(buffer);
+            delete TremoloFX;
+
+        } else if (vec[0] == "save") {
+            std::cout << "saving audio" << std::endl;
+            wav.save(argv[2], buffer);
+            break;
+        } else if (vec[0] == "help") {
+            std::cout << helpMenu<< std::endl;
+        } else {
+            std::cout << "invalid command. terminating program." << std::endl;
+            return 1;
+        }
+
+    }
+
+    std::cout << "done." << std::endl;
 
     return 0;
 }
