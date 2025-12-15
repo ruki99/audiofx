@@ -13,7 +13,7 @@ void Tremolo::process(std::vector<float>& input){
 
     for (std::size_t i = 0; i < input.size(); i++){
 
-        float trem = 1 + (depth_m * (sin ( 2 * M_PI * i * (modF_m / sampleRate_m) ) ) );
+        float trem = 1 + (depth_m * (sin (2 * M_PI * i * (modF_m / sampleRate_m) ) ) );
         
         // normalize trem to remove possible distortion when sin term exceeds 1
         trem = trem / (1 + depth_m); 
