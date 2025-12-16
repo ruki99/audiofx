@@ -31,9 +31,10 @@ int main(int argc, char* argv[]){
                         "Distortion     distortion <gain>\n"
                         "Overdrive      overdrive <gain>\n"
                         "Tremolo        tremolo <depth> <modulation frequency>\n"
-                        "\n"
                         "NOTE: COMMANDS ARE CASE-SENSITIVE\n";
     std::cout << helpMenu << std::endl;
+    std::cout << "enter 'help' to display the menu again.\n"
+                "After applying effects, enter 'save' to exit." << std::endl;
 
     // main loop
     while (true){
@@ -50,6 +51,11 @@ int main(int argc, char* argv[]){
             vec.push_back(word);
         }
 
+        // checks for no input
+        if (vec.size() == 0){
+            continue;
+        }
+
         // for (int i = 0; i < vec.size(); i++){
         //     std::cout << vec[i] << std::endl;
         // }
@@ -62,8 +68,8 @@ int main(int argc, char* argv[]){
                 return 1;
             }
 
-            int res = std::stof(vec[1]);
-            int rate = std::stof(vec[2]);
+            unsigned int res = std::stoi(vec[1]);
+            unsigned int rate = std::stoi(vec[2]);
             Effect* BitcrusherFX = new Bitcrusher(res, rate);
             BitcrusherFX->process(buffer);
             delete BitcrusherFX;
@@ -82,7 +88,7 @@ int main(int argc, char* argv[]){
 
         } else if (vec[0] == "overdrive") {
 
-            if (vec.size() != 3 ){
+            if (vec.size() != 2 ){
                 std::cout << "incorrect number of arguments" << std::endl;
                 return 1;
             }
@@ -113,7 +119,7 @@ int main(int argc, char* argv[]){
             std::cout << helpMenu<< std::endl;
         } else {
             std::cout << "invalid command. terminating program." << std::endl;
-            return 1;
+            continue;
         }
 
     }

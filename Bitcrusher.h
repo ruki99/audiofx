@@ -5,14 +5,14 @@
 
 class Bitcrusher: public Effect{
     public:
-        Bitcrusher(int res, int rate);
+        Bitcrusher(unsigned int bitDepth, unsigned int rate);
         ~Bitcrusher();
         void process(std::vector<float>& input) override;
 
     private:
-        int res_m; // resolution factor
-        int rate_m; // sample rate factor
-        int counter_m;
+        unsigned int bitDepth_m; 
+        unsigned int rate_m; 
+        unsigned int counter_m;
         float curSample_m;
 
 };

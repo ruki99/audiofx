@@ -2,8 +2,8 @@
 #include <cmath>
 #include <iostream>
 
-Bitcrusher::Bitcrusher(int res, int rate){
-    res_m = res;
+Bitcrusher::Bitcrusher(unsigned int bitDepth, unsigned int rate){
+    bitDepth_m = bitDepth;
     rate_m = rate;
     counter_m = rate;
     curSample_m = 0.0f;
@@ -21,7 +21,7 @@ void Bitcrusher::process(std::vector<float>& input){
             counter_m = 0;
         }
 
-        float processed = round(curSample_m * res_m) / res_m;
+        float processed = round(curSample_m * bitDepth_m) / bitDepth_m;
         input[i] = processed;
     }
 
