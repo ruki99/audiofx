@@ -21,6 +21,8 @@ Overdrive      overdrive <gain>
 Tremolo        tremolo <depth> <modulation frequency>
 ```
 
+The help menu can be triggered with `help`.
+
 When using effects, each affect is recommened they're used with a specific range.
 
 
@@ -34,4 +36,3 @@ When using effects, each affect is recommened they're used with a specific range
 |            | modulation frequency |float| [0.5,20]|
 
 After applying effects, enter `save` to save the processed audio.
-The help menu can be triggered with `help`.
