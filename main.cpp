@@ -27,10 +27,10 @@ int main(int argc, char* argv[]){
     std::cout << "Welcome to your digital pedalboard!\n" << std::endl;
 
     std::string helpMenu = "EFFECT         COMMAND\n"
-                        "Bitcrusher     bitcrusher <resolution> <rate>\n"
+                        "Bitcrusher     bitcrusher <bit depth> <rate>\n"
                         "Distortion     distortion <gain>\n"
                         "Overdrive      overdrive <gain>\n"
-                        "Tremolo        tremolo <depth> <modulation frequency>\n"
+                        "Tremolo        tremolo <depth> <frequency>\n"
                         "NOTE: COMMANDS ARE CASE-SENSITIVE\n";
     std::cout << helpMenu << std::endl;
     std::cout << "enter 'help' to display the menu again.\n"
@@ -68,9 +68,15 @@ int main(int argc, char* argv[]){
                 return 1;
             }
 
-            unsigned int res = std::stoi(vec[1]);
+            unsigned int bitDepth = std::stoi(vec[1]);
             unsigned int rate = std::stoi(vec[2]);
-            Effect* BitcrusherFX = new Bitcrusher(res, rate);
+
+            if ( (bitDepth < 1)  || (bitDepth > 16) || (rate < 1) || (rate > 10)){
+                std::cout << "invalid range" << std::endl;
+                continue;
+            }
+
+            Effect* BitcrusherFX = new Bitcrusher(bitDepth, rate);
             BitcrusherFX->process(buffer);
             delete BitcrusherFX;
 
@@ -82,6 +88,12 @@ int main(int argc, char* argv[]){
             }
 
             float gain = std::stof(vec[1]);
+
+            if (gain < 50){
+                std::cout << "invalid range" << std::endl;
+                continue;
+            }
+
             Effect* DistortionFX = new Distortion(gain);
             DistortionFX->process(buffer);
             delete DistortionFX;
@@ -94,6 +106,12 @@ int main(int argc, char* argv[]){
             }
             
             float drive = std::stof(vec[1]);
+
+            if (drive < 10 || drive > 50){
+                std::cout << "invalid range" << std::endl;
+                continue;
+            }
+
             Effect* OverdriveFX = new Overdrive(drive);
             OverdriveFX->process(buffer);
             delete OverdriveFX;
@@ -106,8 +124,14 @@ int main(int argc, char* argv[]){
             }
 
             float depth = std::stof(vec[1]);
-            float modFreq = std::stof(vec[2]);
-            Effect* TremoloFX = new Tremolo(depth, modFreq, sampleRate);
+            float freq = std::stof(vec[2]);
+            
+            if ( (depth < 0) || (depth > 1) || (freq < 0.5) || (freq > 20)){
+                std::cout << "invalid range" << std::endl;
+                continue;
+            }
+
+            Effect* TremoloFX = new Tremolo(depth, freq, sampleRate);
             TremoloFX->process(buffer);
             delete TremoloFX;
 
@@ -118,7 +142,7 @@ int main(int argc, char* argv[]){
         } else if (vec[0] == "help") {
             std::cout << helpMenu<< std::endl;
         } else {
-            std::cout << "invalid command. terminating program." << std::endl;
+            std::cout << "invalid command." << std::endl;
             continue;
         }
 

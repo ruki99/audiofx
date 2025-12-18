@@ -8,7 +8,7 @@ C++ implementation of a guitar pedalboard
 2) compile with `make`
 3) run program using `./AudioFX input.wav output.wav`
 
-Note: This program only works with **mono** .wav files
+Note: This program only works with **16-bit mono** .wav files
 
 
 This pedal board inlcues bitcrusher, boost, distortion, overdrive and tremolo effects. The commands to implement each effect are shown below.
@@ -28,8 +28,8 @@ When using effects, each affect is recommened they're used with a specific range
 
 | effect     | parameter            |type| range| 
 |:----------|:----------------------|:----|:---:|
-| bitcrusher | bit depth            |int  | [1,1] |
-|            | rate                 |int  | [1,1] |
+| bitcrusher | bit depth            |int  | [1,16] |
+|            | rate                 |int  | [1,10] |
 | distortion | gain                 |float| [50,100]|
 |overdrive   | gain                 |float| [10,50]|
 | tremolo    | depth                |float| [0,1]|
